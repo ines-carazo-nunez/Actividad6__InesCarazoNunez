@@ -1,4 +1,15 @@
-<section class="container">
-    <h1>Home</h1>
-    <hr>
-</section>
+<div class="container">
+    <section class="row g-3">
+            <div class="d-flex justify-content-between py-2">
+                <button class="btn btn-warning" (click)="goToPrev()">PREV</button>
+                <button class="btn btn-warning" (click)="goToNext()">NEXT</button>
+            </div>
+            @for (usuario of arrUsuariosPromises(); track usuario._id) {
+            <article class="col-12 col-md-6 col-lg-4 col-xl-3">
+                <p>{{usuario.first_name}}</p>
+                <p>{{usuario.email}}</p>
+                <!--  <app-personaje-card [miPersonaje]="personaje"></app-personaje-card> -->
+            </article>
+            }
+    </section>
+</div>
