@@ -1,15 +1,13 @@
 <div class="container">
     <section class="row g-3">
-            <div class="d-flex justify-content-between py-2">
-                <button class="btn btn-warning" (click)="goToPrev()">PREV</button>
-                <button class="btn btn-warning" (click)="goToNext()">NEXT</button>
-            </div>
-            @for (usuario of arrUsuariosPromises(); track usuario._id) {
-            <article class="col-12 col-md-6 col-lg-4 col-xl-3">
-                <p>{{usuario.first_name}}</p>
-                <p>{{usuario.email}}</p>
-                <!--  <app-personaje-card [miPersonaje]="personaje"></app-personaje-card> -->
-            </article>
-            }
+        <div class="d-flex justify-content-between py-2">
+            <button class="btn btn-outline-primary" (click)="goToPrev()">PREV</button>
+            <button class="btn btn-outline-primary" (click)="goToNext()">NEXT</button>
+        </div>
+        @for (usuario of arrUsuariosPromises(); track usuario._id) {
+        <article class="col-12 col-md-6 col-lg-4 col-xl-3">
+            <app-user-card [miUsuario]="usuario"></app-user-card>
+        </article>
+        }
     </section>
 </div>

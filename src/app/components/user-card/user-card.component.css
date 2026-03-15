@@ -1,0 +1,13 @@
+.card{
+    cursor: pointer;
+
+}
+
+.imgUser{
+    max-height: 300px;
+    min-height: 300px;
+    max-width: 300px;
+    object-position: center;
+    object-fit: contain;
+    transition: 1s;
+}
