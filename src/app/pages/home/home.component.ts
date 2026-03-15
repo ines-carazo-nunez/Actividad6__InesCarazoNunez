@@ -4,10 +4,11 @@ import { IUsuario } from '../../interfaces/iusuario.interface';
 import { IResponse } from '../../interfaces/iresponse.interface';
 import { UsuariosService } from '../../services/usuarios.service';
 import { HeaderComponent } from "../../shared/header/header.component";
+import { UserCardComponent } from "../../components/user-card/user-card.component";
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, HeaderComponent],
+  imports: [UserCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
