@@ -1,1 +1,40 @@
-<p>user-form works!</p>
+
+<div class="container mt-4">
+    <h2>NUEVO USUARIO</h2>
+    <form [formGroup]="userForm" (ngSubmit)="getDataForm()">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre usuario</label>
+            <input type="text" class="form-control" id="nombre" formControlName="nombre"
+                placeholder="Introduzca nombre de usuario">
+            @if (checkControl('nombre', 'required')) {
+            <p class="error">Campo requerido</p>
+            }
+        </div>
+        <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido usuario</label>
+            <input type="text" class="form-control" id="apellido" formControlName="apellido" placeholder="Introduzca apellido de usuario">
+            @if (checkControl('apellido', 'required')) {
+            <p class="error">Campo requerido</p>
+            }
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" formControlName="email" placeholder="Introduzca email de usuario">
+            @if (checkControl('email', 'required')) {
+            <p class="error">Campo requerido</p>
+            }
+            @if (checkControl('email', 'pattern')) {
+            <p class="error">El email no está bien escrito</p>
+            }
+        </div>
+        <div class="mb-3">
+            <label for="urlimage" class="form-label">Imagen Usuario</label>
+            <input type="text" class="form-control" id="urlimage" formControlName="urlimage" placeholder="Introduzca la url de la foto del usuario">
+            @if (checkControl('urlimage', 'required')) {
+            <p class="error">Campo requerido</p>
+            }
+        </div>
+        
+        <input type="submit" class="btn btn-success" value="Guardar" [disabled]="!userForm.valid">
+    </form>
+</div>
