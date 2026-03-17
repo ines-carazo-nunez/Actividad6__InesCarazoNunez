@@ -19,11 +19,14 @@ export class UsuariosService {
     return lastValueFrom(this.httpClient.get<IResponse>(miURL));
   }
 
-  getByID(id: number): Promise<IUsuario> {
+  getByID(id: string): Promise<IUsuario> {
+    console.log(`${this.baseUrl}/${id}`);
+    
     return lastValueFrom(this.httpClient.get<IUsuario>(`${this.baseUrl}/${id}`));
   }
 
-  deleteUser(id: number): Promise<IUsuario> {
+  deleteUser(id: string): Promise<IUsuario> {
+    console.log(`${this.baseUrl}/${id}`);
     return lastValueFrom(this.httpClient.delete<IUsuario>(`${this.baseUrl}/${id}`));
   }
 }

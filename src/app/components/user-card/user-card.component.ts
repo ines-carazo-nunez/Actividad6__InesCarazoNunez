@@ -14,18 +14,16 @@ export class UserCardComponent {
   usuariosService = inject(UsuariosService);
 
 
-  async deleteUser(idUsuario: number | undefined) {
-    if (idUsuario === undefined) {
-      console.error('idUsuario is undefined');
+  async deleteUser(idUsuario: string | undefined) {
+    const confirmed = window.confirm('Deseas borrar al usuario ' + this.miUsuario()?.first_name);
+    if (!confirmed) {
       return;
     }
-    const id = Number(idUsuario);
-    if (isNaN(id)) {
-      console.error('idUsuario is not a valid number');
-      return;
+    else {
+      const id = String(idUsuario);
+      const response = await this.usuariosService.deleteUser(id);
+      console.log('aquí');
+      console.log(response);
     }
-    const response = await this.usuariosService.deleteUser(id);
-    console.log('aquí');
-    console.log(response);
   }
 }

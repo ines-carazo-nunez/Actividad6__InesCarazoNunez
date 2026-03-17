@@ -7,7 +7,7 @@
     </div>
     <div class="d-flex justify-content-center pb-3 gap-2">
         <button [routerLink]="['/user', miUsuario()?._id]" class="btn btn-outline-primary">Ver Detalle</button>
-        <button class="btn btn-outline-primary">Actualizar</button>
-        <button (click)="deleteUser(miUsuario()?.id)" class="btn btn-outline-primary">Eliminar</button>
+        <button [routerLink]="['/updateuser', miUsuario()?._id]"class="btn btn-outline-primary">Actualizar</button>
+        <button (click)="deleteUser(miUsuario()?._id)" class="btn btn-outline-primary">Eliminar</button>
     </div>
 </div>
