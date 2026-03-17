@@ -8,7 +8,7 @@ export const routes: Routes = [
     { path: "home", component: HomeComponent },
     { path: "newuser", component: UserFormComponent },
     { path: "user/:id", component: UserViewComponent },
-    { path: "updateuser/:id", component: UserViewComponent },
+    { path: "updateuser/:id", component: UserFormComponent },
 
     { path: "**", component: HomeComponent }
 ];
