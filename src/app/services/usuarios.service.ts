@@ -22,4 +22,8 @@ export class UsuariosService {
   getByID(id: number): Promise<IUsuario> {
     return lastValueFrom(this.httpClient.get<IUsuario>(`${this.baseUrl}/${id}`));
   }
+
+  deleteUser(id: number): Promise<IUsuario> {
+    return lastValueFrom(this.httpClient.delete<IUsuario>(`${this.baseUrl}/${id}`));
+  }
 }

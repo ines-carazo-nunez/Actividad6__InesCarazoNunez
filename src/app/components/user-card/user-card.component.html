@@ -1,4 +1,4 @@
-<div class="card border border-2 bor height-500" [routerLink]="['/user', miUsuario()?.id]">
+<div class="card border border-2 bor height-500">
     <figure class="d-flex justify-content-center">
         <img class="imgUser  rounded-circle" [src]="miUsuario()?.image" [alt]="miUsuario()?.first_name">
     </figure>
@@ -6,8 +6,8 @@
         <h3>{{ miUsuario()?.first_name }} {{ miUsuario()?.last_name }}</h3>
     </div>
     <div class="d-flex justify-content-center pb-3 gap-2">
-        <button class="btn btn-outline-primary">Ver Detalle</button>
+        <button [routerLink]="['/user', miUsuario()?._id]" class="btn btn-outline-primary">Ver Detalle</button>
         <button class="btn btn-outline-primary">Actualizar</button>
-        <button class="btn btn-outline-primary">Eliminar</button>
+        <button (click)="deleteUser(miUsuario()?.id)" class="btn btn-outline-primary">Eliminar</button>
     </div>
 </div>
