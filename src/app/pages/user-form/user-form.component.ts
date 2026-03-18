@@ -20,7 +20,7 @@ export class UserFormComponent {
   async ngOnInit() {
     const idUsuario: string = this.id()!;
 
-    this.isUpdateMode = !!this.id; // Si hay id, isUpdateMode es true
+    this.isUpdateMode = !!this.id(); // Si hay id, isUpdateMode es true
 
     if (this.isUpdateMode) {
       //hacemos una petición al servicio
