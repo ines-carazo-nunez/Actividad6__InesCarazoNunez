@@ -5,21 +5,21 @@
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre usuario</label>
             <input type="text" class="form-control" id="nombre" formControlName="nombre"
-                placeholder="Introduzca nombre de usuario">
+                placeholder="Introduzca nombre de usuario" [value]="isUpdateMode ? usuario()?.first_name : ''">
             @if (checkControl('nombre', 'required')) {
             <p class="error">Campo requerido</p>
             }
         </div>
         <div class="mb-3">
             <label for="apellido" class="form-label">Apellido usuario</label>
-            <input type="text" class="form-control" id="apellido" formControlName="apellido" placeholder="Introduzca apellido de usuario">
+            <input type="text" class="form-control" id="apellido" formControlName="apellido" placeholder="Introduzca apellido de usuario" [value]="isUpdateMode ? usuario()?.last_name : ''">
             @if (checkControl('apellido', 'required')) {
             <p class="error">Campo requerido</p>
             }
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" formControlName="email" placeholder="Introduzca email de usuario">
+            <input type="email" class="form-control" id="email" formControlName="email" placeholder="Introduzca email de usuario" [value]="isUpdateMode ? usuario()?.email : ''">
             @if (checkControl('email', 'required')) {
             <p class="error">Campo requerido</p>
             }
@@ -29,12 +29,12 @@
         </div>
         <div class="mb-3">
             <label for="urlimage" class="form-label">Imagen Usuario</label>
-            <input type="text" class="form-control" id="urlimage" formControlName="urlimage" placeholder="Introduzca la url de la foto del usuario">
+            <input type="text" class="form-control" id="urlimage" formControlName="urlimage" placeholder="Introduzca la url de la foto del usuario" [value]="isUpdateMode ? usuario()?.image : ''">
             @if (checkControl('urlimage', 'required')) {
             <p class="error">Campo requerido</p>
             }
         </div>
         
-        <input type="submit" class="btn btn-success" value="Guardar" [disabled]="!userForm.valid">
+        <input type="submit" class="btn btn-light btn-lg" [value]="isUpdateMode ? 'Actualizar' : 'Guardar'" [disabled]="!userForm.valid">
     </form>
 </div>
