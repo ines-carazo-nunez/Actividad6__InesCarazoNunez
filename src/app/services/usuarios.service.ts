@@ -19,9 +19,7 @@ export class UsuariosService {
     return lastValueFrom(this.httpClient.get<IResponse>(miURL));
   }
 
-  getByID(id: string): Promise<IUsuario> {
-    console.log(`${this.baseUrl}/${id}`);
-    
+  getByID(id: string | undefined): Promise<IUsuario> {
     return lastValueFrom(this.httpClient.get<IUsuario>(`${this.baseUrl}/${id}`));
   }
 
@@ -29,12 +27,11 @@ export class UsuariosService {
     return lastValueFrom(this.httpClient.post<IUsuario>(this.baseUrl, usuario));
   }
 
-  updateUser(id: string, usuario: IUsuario): Promise<IUsuario> {
-    return lastValueFrom(this.httpClient.put<IUsuario>(`${this.baseUrl}/${id}`, usuario));
+  updateUser(id: string | undefined, body: IUsuario): Promise<IUsuario> {
+    return lastValueFrom(this.httpClient.put<IUsuario>(`${this.baseUrl}/${id}`, body));
   }
 
-  deleteUser(id: string): Promise<IUsuario> {
-    console.log(`${this.baseUrl}/${id}`);
+  deleteUser(id: string | undefined): Promise<IUsuario> {
     return lastValueFrom(this.httpClient.delete<IUsuario>(`${this.baseUrl}/${id}`));
   }
 }

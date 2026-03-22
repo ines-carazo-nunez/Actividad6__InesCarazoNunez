@@ -2,6 +2,7 @@ import { Component, inject, input, signal } from '@angular/core';
 import { IUsuario } from '../../interfaces/iusuario.interface';
 import { RouterLink } from '@angular/router';
 import { UsuariosService } from '../../services/usuarios.service';
+import { toast } from 'ngx-sonner';
 
 @Component({
   selector: 'app-user-card',
@@ -15,15 +16,14 @@ export class UserCardComponent {
 
 
   async deleteUser(idUsuario: string | undefined) {
-    const confirmed = window.confirm('Deseas borrar al usuario ' + this.miUsuario()?.first_name);
-    if (!confirmed) {
+    const confirmado: boolean = confirm("¿Deseas borrar al usuario " + this.miUsuario()?.first_name + "?");
+
+    if (confirmado) {
+      const response = await this.usuariosService.deleteUser(idUsuario);
+      toast.error("Usuario " + this.miUsuario()?.first_name + " borrado")
+    } else {
+      toast.info("NO se ha borrado al usuario " + this.miUsuario()?.first_name)
       return;
-    }
-    else {
-      const id = String(idUsuario);
-      const response = await this.usuariosService.deleteUser(id);
-      console.log('aquí');
-      console.log(response);
     }
   }
 }

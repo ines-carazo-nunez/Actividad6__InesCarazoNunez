@@ -2,6 +2,8 @@ import { Component, inject, input, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IUsuario } from '../../interfaces/iusuario.interface';
 import { UsuariosService } from '../../services/usuarios.service';
+import { Router } from '@angular/router';
+import { toast } from 'ngx-sonner';
 
 @Component({
   selector: 'app-user-form',
@@ -13,41 +15,55 @@ export class UserFormComponent {
   userForm: FormGroup
   usuariosServices = inject(UsuariosService);
   id = input<string>()
-  //productosService = inject(ProductosService)
   usuario = signal<IUsuario | undefined>(undefined)
   isUpdateMode: boolean = false;
-
-  async ngOnInit() {
-    const idUsuario: string = this.id()!;
-
-    this.isUpdateMode = !!this.id(); // Si hay id, isUpdateMode es true
-
-    if (this.isUpdateMode) {
-      //hacemos una petición al servicio
-      this.usuario.set(await this.usuariosServices.getByID(idUsuario));;
-      console.log(this.usuario());
-    }
-
-  }
+  title: string = 'Nuevo'
+  router = inject(Router)
 
   constructor() {
-    console.log(this.id());
-
     this.userForm = new FormGroup({
-      nombre: new FormControl("", [
+      first_name: new FormControl("", [
         Validators.required
       ]),
-      apellido: new FormControl("", [
+      last_name: new FormControl("", [
         Validators.required,
       ]),
       email: new FormControl("", [
         Validators.required,
-        Validators.pattern(/^\w+\@[a-zA-Z_]+?\.[a-zA-Z_]{2,3}/)
+        Validators.pattern(/^\S+@\S+\.\S+$/)
       ]),
-      urlimage: new FormControl("", [
-        Validators.required
+      username: new FormControl("", [
+        Validators.required,
+      ]),
+      password: new FormControl("", [
+        Validators.required,
+        Validators.minLength(8)
+      ]),
+      image: new FormControl("", [
+        Validators.required,
+        Validators.pattern(/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/)
       ]),
     }, [])
+  }
+
+  async ngOnInit() {
+    // si recibimos el id estamos en actualizar y si no estamos en insertar
+    if (this.id()) {
+      this.title = 'Actualizar'
+      //pedir los datos al servicio para rellenar el formulario
+      this.usuario.set(await this.usuariosServices.getByID(this.id()))
+
+      this.userForm.patchValue({
+        _id: this.usuario()?._id,
+        first_name: this.usuario()?.first_name,
+        last_name: this.usuario()?.last_name,
+        email: this.usuario()?.email,
+        username: this.usuario()?.username,
+        password: this.usuario()?.password,
+        image: this.usuario()?.image,
+      })
+
+    }
   }
 
   checkControl(controlName: string, errorName: string): boolean | undefined {
@@ -55,24 +71,30 @@ export class UserFormComponent {
   }
 
   async getDataForm() {
-    if (this.isUpdateMode) {
-      // Llamar a servicio.actualizar(id, datos)
-    } else {
-      // Llamar a servicio.crear(datos)
-      console.log(this.userForm.value.urlimage);
-      let usuario: IUsuario = {
-        first_name: this.userForm.value.nombre,
-        last_name: this.userForm.value.apellido,
-        username: this.userForm.value.nombre + this.userForm.value.apellido,
-        email: this.userForm.value.email,
-        image: this.userForm.value.urlimage,
-        password: '12345'
+    if (this.id()) {
+      try {
+        const response = await this.usuariosServices.updateUser(this.id(), this.userForm.value)
+
+        //envio al lista empleados para ver que se ha guardado.
+        toast.warning('Usuario actualizado correctamente')
+        this.router.navigate(['/home'])
+      } catch (dataError: any) {
+        console.log(dataError.error)
       }
-      const response: IUsuario = await this.usuariosServices.createUser(usuario);
-      console.log(response);
-      alert('Usuario creado con éxito');
-      this.userForm.reset()
+    } else {
+      try {
+        const response = await this.usuariosServices.createUser(this.userForm.value)
+        if (response) {
+          //envio al lista empleados para ver que se ha guardado.
+          toast.success('Usuario registrado correctamente')
+          this.router.navigate(['/home'])
+        }
+        this.userForm.reset()
+      } catch (dataError: any) {
+        console.log(dataError.error)
+      }
     }
+
 
   }
 }

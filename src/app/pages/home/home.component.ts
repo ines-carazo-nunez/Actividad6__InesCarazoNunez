@@ -29,9 +29,6 @@ export class HomeComponent {
     try {
       const response: IResponse = await this.usuariosServices.getAllPromises(page);
       this.arrUsuariosPromises.set(response.results);
-      console.log('AQUÍ');
-      console.log(response);
-      console.log(response.results);
 
       this.page = response.page;
       this.totalPages = response.total_pages;

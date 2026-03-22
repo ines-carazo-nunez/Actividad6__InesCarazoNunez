@@ -1,25 +1,26 @@
-
 <div class="container mt-4">
-    <h2>NUEVO USUARIO</h2>
+    <h2>{{title}} USUARIO</h2>
     <form [formGroup]="userForm" (ngSubmit)="getDataForm()">
         <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre usuario</label>
-            <input type="text" class="form-control" id="nombre" formControlName="nombre"
-                placeholder="Introduzca nombre de usuario" [value]="isUpdateMode ? usuario()?.first_name : ''">
-            @if (checkControl('nombre', 'required')) {
+            <label for="first_name" class="form-label">Nombre usuario</label>
+            <input type="text" class="form-control" id="first_name" formControlName="first_name"
+                placeholder="Introduzca nombre de usuario">
+            @if (checkControl('first_name', 'required')) {
             <p class="error">Campo requerido</p>
             }
         </div>
         <div class="mb-3">
-            <label for="apellido" class="form-label">Apellido usuario</label>
-            <input type="text" class="form-control" id="apellido" formControlName="apellido" placeholder="Introduzca apellido de usuario" [value]="isUpdateMode ? usuario()?.last_name : ''">
-            @if (checkControl('apellido', 'required')) {
+            <label for="last_name" class="form-label">Apellido usuario</label>
+            <input type="text" class="form-control" id="last_name" formControlName="last_name"
+                placeholder="Introduzca apellido de usuario">
+            @if (checkControl('last_name', 'required')) {
             <p class="error">Campo requerido</p>
             }
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" formControlName="email" placeholder="Introduzca email de usuario" [value]="isUpdateMode ? usuario()?.email : ''">
+            <input type="email" class="form-control" id="email" formControlName="email"
+                placeholder="Introduzca email de usuario" >
             @if (checkControl('email', 'required')) {
             <p class="error">Campo requerido</p>
             }
@@ -27,14 +28,37 @@
             <p class="error">El email no está bien escrito</p>
             }
         </div>
-        <div class="mb-3">
-            <label for="urlimage" class="form-label">Imagen Usuario</label>
-            <input type="text" class="form-control" id="urlimage" formControlName="urlimage" placeholder="Introduzca la url de la foto del usuario" [value]="isUpdateMode ? usuario()?.image : ''">
-            @if (checkControl('urlimage', 'required')) {
+         <div class="mb-3">
+            <label for="username" class="form-label">Usuario</label>
+            <input type="text" class="form-control" id="username" formControlName="username"
+                placeholder="Introduzca nombre de usuario">
+            @if (checkControl('username', 'required')) {
             <p class="error">Campo requerido</p>
             }
         </div>
-        
-        <input type="submit" class="btn btn-light btn-lg" [value]="isUpdateMode ? 'Actualizar' : 'Guardar'" [disabled]="!userForm.valid">
+         <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="text" class="form-control" id="password" formControlName="password"
+                placeholder="Introduzca la contraseña de usuario">
+            @if (checkControl('password', 'required')) {
+            <p class="error">Campo requerido</p>
+            }
+            @if (checkControl('password', 'minlength')) {
+            <p class="error">La contraseña tiene que tener al menos 8 caracteres</p>
+            }
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Imagen Usuario</label>
+            <input type="text" class="form-control" id="image" formControlName="image"
+                placeholder="Introduzca la url de la foto del usuario" >
+            @if (checkControl('image', 'required')) {
+            <p class="error">Campo requerido</p>
+            }
+            @if (checkControl('image', 'pattern')) {
+            <p class="error">El texto introducido no es una url correcta</p>
+            }
+        </div>
+
+        <input type="submit" class="btn btn-light btn-lg" [value]="title" [disabled]="!id() && !userForm.valid">
     </form>
 </div>
