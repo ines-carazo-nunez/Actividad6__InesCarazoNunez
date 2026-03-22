@@ -1,0 +1,18 @@
+<div class="card border border-2 h-100 d-flex flex-column">
+    <figure class="d-flex justify-content-center mt-3">
+        <img class="imgUser rounded-circle" [src]="miUsuario()?.image" [alt]="miUsuario()?.first_name">
+    </figure>
+    <div class="p-3 text-center">
+        <div class="mb-0">
+            <h3>{{ miUsuario()?.first_name }} {{ miUsuario()?.last_name }}</h3>
+        </div>
+    </div>
+    <div class="mt-auto pb-3">
+        <div class="d-flex justify-content-center gap-2">
+            <button [routerLink]="['/user', miUsuario()?._id]" class="btn btn-outline-primary">Ver Detalle</button>
+            <button [routerLink]="['/updateuser', miUsuario()?._id]" class="btn btn-outline-primary">Actualizar</button>
+            <button (click)="deleteUser(miUsuario()?._id)" class="btn btn-outline-primary">Eliminar</button>
+        </div>
+    </div>
+
+</div>

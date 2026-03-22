@@ -1,0 +1,25 @@
+<div class="d-flex justify-content-center align-items-center flex-row gap-4">
+    <div class="container mt-4 border-end border-1 border-dark">
+        <figure class="d-flex justify-content-center align-items-center border-right-2 border-dark">
+            <img class="imgUser  rounded-circle" [src]="usuario()?.image" [alt]="usuario()?.first_name">
+        </figure>
+    </div>
+    <div class="container mt-4">
+        <div class=" text-justify pb-3">
+            <h2 class="pb-3">{{ usuario()?.first_name }} </h2>
+            <h2 class="pb-3">{{ usuario()?.last_name }}</h2>
+            <h3 class="pb-3"><b>Nombre de usuario:</b> {{ usuario()?.username }}</h3>
+            <h3 class="pb-3"><b>Email:</b> {{ usuario()?.email }}</h3>
+        </div>
+        <div class="d-flex justify-content-start align-items-center gap-2">
+            <div class="btn-group btn-group-lg" role="group">
+                <button type="button" (click)="deleteUser(usuario()?._id)"
+                    class="btn btn-outline-primary">Eliminar</button>
+                <button type="button" [routerLink]="['/updateuser', usuario()?._id]"
+                    class="btn btn-outline-primary">Actualizar</button>
+                <button type="button" [routerLink]="['/home']" class="btn btn-outline-primary">Volver al
+                    listado</button>
+            </div>
+        </div>
+    </div>
+</div>
